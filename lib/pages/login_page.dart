@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fod_partner/pages/forget_password.dart';
+import 'package:fod_partner/pages/home_page.dart';
 import 'package:fod_partner/utils/alert.dart';
 import 'package:fod_partner/utils/login_round_cliper.dart';
 import 'package:fod_partner/utils/server.dart';
 import 'package:http/http.dart' as http;
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class LoginPage extends StatefulWidget {
 
   @override
@@ -14,11 +17,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   AlertCustom alert ; 
   String _loginurl ; 
+  SharedPreferences _sharedPreferences ; 
+  ProgressDialog _progressDialog ; 
   TextEditingController _mobilecontroller , _passwordcontroller ; 
   AssetImage _backgroundimage = AssetImage("assets/images/login_image.jpg");
  
   
   _login()async{
+    _sharedPreferences = await SharedPreferences.getInstance();
     String mobile , password ; 
     mobile = _mobilecontroller.text.trim() ; 
     password = _passwordcontroller.text.trim() ; 
@@ -29,39 +35,80 @@ class _LoginPageState extends State<LoginPage> {
        alert.onbasicalert("Password is required") ; 
        return ; 
     }
+    _progressDialog.show() ; 
    Map logindata = {
   'mobile': mobile,
   'password':password
   } ; 
   String _body = json.encode(logindata);
-  // print(_body);
+    // print(_body);
     // print(_loginurl);
     http.Response response = await http.post(Uri.encodeFull(_loginurl) ,
      headers: {"Accept":"application/json"  ,"content-type":"application/json"} ,
      body: _body) ; 
     if(response.statusCode==200){
+      _progressDialog.dismiss();
       var body = response.body ; 
       // print(response.contentLength);
       print(body);
+      var _jsondata = json.decode(body) ; 
+      bool _error = _jsondata['error'] ; 
+      String _msg= _jsondata['msg'] ; 
+      // print(_msg);
+      if(_error){
+        alert.showErrorMsg(_msg, "Error") ; 
+        return ; 
+      }
+      String _token = _jsondata['token'] ; 
+      String _user = _jsondata['user'] ; 
+      _sharedPreferences.setBool("_logged", true) ;
+      _sharedPreferences.setString("_user",_user) ; 
+      _sharedPreferences.setString("_token",_token);
+      _isLoggedIn();
+
     }else{
       print("Response  Error") ; 
     }
     
   }
+  _isLoggedIn() async{
+    _sharedPreferences = await SharedPreferences.getInstance();
+    bool _isLoggedIn  = false  ; 
+    try{
+      _isLoggedIn = _sharedPreferences.getBool("_logged") ; 
+      print(_isLoggedIn);
+      if(_isLoggedIn){
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (BuildContext ctx)=>HomePage()));
+      }
+    }catch(error){
+      print(error);
+    }
+  }
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
+     
     _mobilecontroller = TextEditingController() ; 
     _passwordcontroller = TextEditingController();
     _loginurl = Server.login ; 
     print(
       _loginurl
     ) ; 
+    _isLoggedIn();
+    // _sharedPreferences.getBool("_logged");
   }
   @override
   Widget build(BuildContext context) {
     alert = AlertCustom(context);
+    
+    
+    _progressDialog = new ProgressDialog(
+      context , 
+      isDismissible: false , 
+      type: ProgressDialogType.Normal
+    ) ; 
     return Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(

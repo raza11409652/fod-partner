@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:fod_partner/utils/alert.dart';
 import 'package:fod_partner/utils/server.dart';
 import 'package:http/http.dart' as http;
+import 'package:progress_dialog/progress_dialog.dart';
 class ForgetPassword extends StatefulWidget {
   @override
   _ForgetPasswordState createState() => _ForgetPasswordState();
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-  TextEditingController _mobileController , _otpController ;
+  TextEditingController _mobileController , _otpController , _newpassword ;
   AlertCustom _alertCustom ; 
   String currentMobile ;  
+  ProgressDialog _progressDialog ; 
   TextStyle _listTile = new TextStyle(
     color: Colors.grey , 
   ) ; 
@@ -20,16 +22,86 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     super.initState();
     _mobileController = TextEditingController() ; 
     _otpController  = TextEditingController() ; 
+    _newpassword  =TextEditingController() ; 
      
 
   }
+
+  bool validateStructure(String value){
+        String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+        RegExp regExp = new RegExp(pattern);
+        return regExp.hasMatch(value);
+  }
+  /**
+   * This function will save new password it require 
+   * 2 parameter 1.Mobile number
+   * and 2. New Password
+   */
+  _newPasswordSave ()async{
+    // _progressDialog.show() ; 
+      print(currentMobile);
+      String password = _newpassword.text ; 
+      if(password.length<1){
+        _alertCustom.showErrorMsg("Password is required", "Alert") ; 
+        return ;  
+      }
+      if(password.length<8){
+        _alertCustom.showErrorMsg("Password must be of atleat 8 character", "Alert") ; 
+        return ; 
+      }
+      if(!validateStructure(password)){
+        _alertCustom.showErrorMsg("Password must follow valid format", "Alert") ; 
+        return ; 
+      }
+
+      _progressDialog.show() ; 
+      Map _data  = {
+        "mobile" :currentMobile , 
+        "password":password 
+      } ;
+
+      String _url = Server.newpassword ; 
+      String _requestBody = json.encode(_data) ;
+      http.Response _response= await http.post(
+        Uri.encodeFull(_url),
+        headers: {
+           "Accept":"application/json"  ,
+          "content-type":"application/json"
+        },
+        body: _requestBody
+      ) ; 
+      if(_response.statusCode==200){
+        _progressDialog.dismiss() ; 
+        // print(_response.body);
+        var _jsonresponse = json.decode(_response.body) ; 
+        bool error   =_jsonresponse['error'] ;
+        String _msg = _jsonresponse['msg'] ; 
+        if(!error){
+
+          Navigator.pop(context) ; 
+          _alertCustom.showSuccess(_msg);
+        }else{
+            _alertCustom.showErrorMsg(_msg, "Alert") ; 
+          return ; 
+        }
+      }else{
+        print("Server Status ! valid");
+      }
+
+
+
+  }
+
   _verify ()async{
+    
     print(currentMobile) ; 
     String _otp = _otpController.text.trim() ; 
     if(_otp.length<1){
       _alertCustom.showErrorMsg("OTP is required", "Error") ; 
       return ; 
     }
+
+    _progressDialog.show() ; 
     String _url = Server.verify ; 
     Map _data = {
       'mobile' :currentMobile , 
@@ -45,6 +117,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       body: _requestBody 
     ) ; 
     if(_response.statusCode==200){
+      _progressDialog.dismiss() ; 
       var _responseBody = _response.body ; 
       // print(_responseBody);
        var _jsondecode = json.decode(_responseBody) ; 
@@ -52,13 +125,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         // print(error);
         if(error){
           String msg = _jsondecode['msg'] ; 
-          // _alertCustom.showErrorMsg(msg, "Error") ; 
-          Navigator.pop(context) ; 
-          _newPasswordDailog() ; 
+          _alertCustom.showErrorMsg(msg, "Error") ; 
+          // Navigator.pop(context) ; 
+          // _newPasswordDailog() ; 
 
         }else{
           Navigator.pop(context);
           // print(_jsondecode);
+          _newPasswordDailog() ; 
           
         }
         
@@ -67,12 +141,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     }
   }
   _reset() async{
+    // _progressDialog.show() ; 
     String _url = Server.reset  ;
     String mobile = _mobileController.text.trim() ; 
     if(mobile==null  || mobile.length<1){
       _alertCustom.onbasicalert("Please enter mobile number");
       return ; 
     }
+
+    _progressDialog.show() ; 
      Map _data = {
     'mobile': mobile,
   } ; 
@@ -86,6 +163,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
        body: _body
     ) ; 
     if(_response.statusCode ==200){
+      _progressDialog.dismiss() ; 
       var _responsebody = _response.body ; 
       // print(_responsebody);
       var _jsondecode = json.decode(_responsebody) ; 
@@ -94,8 +172,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
        
       if(_error){
         String msg = _jsondecode['msg'] ; 
-        // _alertCustom.showErrorMsg(msg, "Alert");
-         _showBottomSheet(mobile);
+         _alertCustom.showErrorMsg(msg, "Alert");
+        //  _showBottomSheet(mobile);
       }else{
         setState(() {
           currentMobile = mobile ; 
@@ -111,6 +189,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   @override
   Widget build(BuildContext context) {
+    _progressDialog = ProgressDialog(context ,
+    type: ProgressDialogType.Normal , 
+    isDismissible: false 
+    );
     _alertCustom = AlertCustom(context);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -253,7 +335,7 @@ Column _buildNewPassword(){
                 ),
                 new Expanded(
                   child:TextField(
-                    controller: null,
+                    controller: _newpassword,
                     obscureText: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -298,6 +380,7 @@ Column _buildNewPassword(){
                     splashColor: Colors.black26,
                     color:Colors.black,
                     onPressed: (){
+                      _newPasswordSave();
                       print("Update password clicked");
                     }, child: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -334,7 +417,10 @@ Column _buildBottomSheet(String mobile){
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Text("Please Enter 4 digit OTP sent to your mobile number "+ mobile),
+          child: Text("Please Enter 4 digit OTP sent to your mobile number "+ mobile , style: TextStyle(
+            color: Colors.black , 
+            fontSize: 16.0
+          ),),
         ),
        Container(
             decoration: BoxDecoration(
@@ -424,6 +510,7 @@ Column _buildBottomSheet(String mobile){
     ) ;
 }  
 void _newPasswordDailog(){
+  
   showModalBottomSheet(context: context, builder: (context){
     return Container(
       color:Color(0xFF737373) ,

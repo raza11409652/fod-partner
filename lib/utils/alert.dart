@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fod_partner/pages/login_page.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 class AlertCustom{
   BuildContext _context ;
@@ -11,7 +12,23 @@ class AlertCustom{
    type: AlertType.warning,
    title: msg).show();
   }
-
+  Future <void>showSuccess(var msg) async{
+    Alert(context: _context , 
+    type: AlertType.success ,
+    style: AlertStyle(
+      isOverlayTapDismiss: false,
+      animationType: AnimationType.grow
+      ),
+    title: msg , 
+    
+    buttons:[ 
+    ],
+    closeFunction: (){
+      Navigator.pop(_context,MaterialPageRoute(
+        builder: (BuildContext ctx)=>LoginPage())) ; 
+    }
+    ).show() ; 
+  }
 Future<void> showErrorMsg(var msg , var title) async{
   
   return showDialog<void>(

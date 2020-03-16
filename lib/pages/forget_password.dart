@@ -194,6 +194,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     );
     _alertCustom = AlertCustom(context);
     return Scaffold(
+      resizeToAvoidBottomPadding: true,
       backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0.0,
@@ -296,117 +297,121 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         ),
     );
   }
-Column _buildNewPassword(){
-  return Column(
-    children: <Widget>[
-      Padding(padding: const EdgeInsets.all(24.0) , 
-      child: Text("Create your password" , style: TextStyle(
-        color: Colors.black , 
-        fontSize: 32.0 , 
-        fontWeight: FontWeight.bold
-        ),),
-      ),
-       Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey.withOpacity(0.5) , 
-                width: 1.0
-              ) ,
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            margin: const EdgeInsets.symmetric(
-              vertical: 10.0 ,
-              horizontal: 20.0
-            ),
-            child: Row(
-              children: <Widget>[
-                new Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                child: Icon(
-                  Icons.lock , 
-                  color: Colors.grey,
-                ),
-                ),
-                Container(
-                  height: 30.0,
-                  width: 1.0,
-                  color: Colors.grey.withOpacity(0.5),
-                  margin: const EdgeInsets.only(left: 00.0, right: 10.0),
-                ),
-                new Expanded(
-                  child:TextField(
-                    controller: _newpassword,
-                    obscureText: true,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: InputBorder.none , 
-                    hintText: "Enter new password"
-                  ),
-                ) 
-                
+ListView _buildNewPassword(){
+  return ListView(
+       children: <Widget>[
+        Column(
+      children: <Widget>[
+        Padding(padding: const EdgeInsets.all(24.0) , 
+        child: Text("Create your password" , style: TextStyle(
+          color: Colors.black , 
+          fontSize: 32.0 , 
+          fontWeight: FontWeight.bold
+          ),),
+        ),
+         Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey.withOpacity(0.5) , 
+                  width: 1.0
                 ) ,
-
-              ],
-            ),
-          ) , 
-          ListTile(
-            contentPadding: const EdgeInsets.only(
-              left:40.0 , 
-              bottom: 0.0
-            ),
-            title: Text("At least 8 character"  , style: _listTile,),
-            leading: Icon(Icons.language  , color: Colors.grey,),
-          ),
-          ListTile(
-            contentPadding: const EdgeInsets.only(
-              left:40.0 , 
-              right: 40.0
-            ),
-            title: Text("Must contains a symbol, a number and a upper case " ,
-             style: _listTile,),
-            leading: Icon(Icons.language , color: Colors.grey,),
-          ) , 
-          Container(
-            margin: const EdgeInsets.only(top:40.0),
-            padding: const EdgeInsets.only(left:20.0 , right:20.0),
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: MaterialButton(
-                    
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0) ,  
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              margin: const EdgeInsets.symmetric(
+                vertical: 10.0 ,
+                horizontal: 20.0
+              ),
+              child: Row(
+                children: <Widget>[
+                  new Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  child: Icon(
+                    Icons.lock , 
+                    color: Colors.grey,
+                  ),
+                  ),
+                  Container(
+                    height: 30.0,
+                    width: 1.0,
+                    color: Colors.grey.withOpacity(0.5),
+                    margin: const EdgeInsets.only(left: 00.0, right: 10.0),
+                  ),
+                  new Expanded(
+                    child:TextField(
+                      controller: _newpassword,
+                      obscureText: true,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      border: InputBorder.none , 
+                      hintText: "Enter new password"
                     ),
-                    splashColor: Colors.black26,
-                    color:Colors.black,
-                    onPressed: (){
-                      _newPasswordSave();
-                      print("Update password clicked");
-                    }, child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Padding(
-                        padding: const EdgeInsets.all(
-                         20.0
-                        ),
-                        child: Text("Update" ,style: TextStyle(color: Colors.white),),
-                      ) , 
-                      Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white , 
-                          borderRadius: BorderRadius.circular(24.0)
-                        ),
-                        child: Icon(Icons.arrow_forward , color: Theme.of(context).primaryColor),
-                      ) , 
-                    ],
-                  )),
-                ) , 
-                
-              ],
-            ),
-          )
+                  ) 
+                  
+                  ) ,
 
-    ],
+                ],
+              ),
+            ) , 
+            ListTile(
+              contentPadding: const EdgeInsets.only(
+                left:40.0 , 
+                bottom: 0.0
+              ),
+              title: Text("At least 8 character"  , style: _listTile,),
+              leading: Icon(Icons.language  , color: Colors.grey,),
+            ),
+            ListTile(
+              contentPadding: const EdgeInsets.only(
+                left:40.0 , 
+                right: 40.0
+              ),
+              title: Text("Must contains a symbol, a number and a upper case " ,
+               style: _listTile,),
+              leading: Icon(Icons.language , color: Colors.grey,),
+            ) , 
+            Container(
+              margin: const EdgeInsets.only(top:40.0),
+              padding: const EdgeInsets.only(left:20.0 , right:20.0),
+              child: new Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: MaterialButton(
+                      
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0) ,  
+                      ),
+                      splashColor: Colors.black26,
+                      color:Colors.black,
+                      onPressed: (){
+                        _newPasswordSave();
+                        print("Update password clicked");
+                      }, child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.all(
+                           20.0
+                          ),
+                          child: Text("Update" ,style: TextStyle(color: Colors.white),),
+                        ) , 
+                        Container(
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white , 
+                            borderRadius: BorderRadius.circular(24.0)
+                          ),
+                          child: Icon(Icons.arrow_forward , color: Theme.of(context).primaryColor),
+                        ) , 
+                      ],
+                    )),
+                  ) , 
+                  
+                ],
+              ),
+            )
+
+      ],
+    ) 
+       ],
   ) ; 
 }
 
@@ -510,7 +515,10 @@ Column _buildBottomSheet(String mobile){
 }  
 void _newPasswordDailog(){
   
-  showModalBottomSheet(context: context, builder: (context){
+  showModalBottomSheet(
+    
+    isScrollControlled: true,
+    context: context, builder: (context){
     return Container(
       color:Color(0xFF737373) ,
       child: Container(
@@ -521,8 +529,8 @@ void _newPasswordDailog(){
             topRight: const Radius.circular(10)
           )
         ),
-        child: _buildNewPassword(),
-      ),
+        child:_buildNewPassword()
+        )
     ) ; 
   }) ; 
 }
@@ -530,8 +538,8 @@ void _showBottomSheet(String mobile){
   setState(() {
     _otpController = new TextEditingController();
   });
-  showModalBottomSheet(context: context, 
-  builder: (context){
+  DraggableScrollableSheet(
+  builder: (BuildContext ctx ,ScrollController scrollController ){
     return Container(
      color: Color(0xFF737373),
      child: Container(

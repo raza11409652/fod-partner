@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
       _sharedPreferences.setBool("_logged", true) ;
       _sharedPreferences.setString("_user",_user) ; 
       _sharedPreferences.setString("_token",_token);
-      _isLoggedIn();
+    _isLoggedIn();
 
     }else{
       print("Response  Error") ; 
@@ -109,180 +109,182 @@ class _LoginPageState extends State<LoginPage> {
       isDismissible: false , 
       type: ProgressDialogType.Normal
     ) ; 
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        color: Colors.white
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          new ClipPath(
-            clipper:  LoginClipper(),
-            child: Container(
-              decoration: BoxDecoration(
-                image: new DecorationImage(
-                  fit: BoxFit.cover ,
-                  image:  _backgroundimage
-                
-                )
-                
+    return SingleChildScrollView(
+          child: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          color: Colors.white
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            new ClipPath(
+              clipper:  LoginClipper(),
+              child: Container(
+                decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    fit: BoxFit.cover ,
+                    image:  _backgroundimage
+                  
+                  )
+                  
+                ),
+                alignment: Alignment.center,
+                padding: EdgeInsets.only(top: 150.0, bottom: 100.0),
+                child: Column(
+                  children: <Widget>[
+                    Text("LOGIN" , style: TextStyle(
+                      fontSize: 50.0 , 
+                      fontWeight: FontWeight.bold , 
+                      color: Theme.of(context).primaryColor
+                    ),) , 
+                    Text(
+                      "Access to your data" , 
+                      style: TextStyle(
+                        color: Colors.blueAccent , 
+                        fontWeight: FontWeight.bold
+                      ),
+                    )
+                  ],
+                ),
               ),
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(top: 150.0, bottom: 100.0),
-              child: Column(
+              
+            ),
+            Container(
+              
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey.withOpacity(0.5) , 
+                  width: 1.0
+                ) ,
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              margin: const EdgeInsets.symmetric(
+                vertical: 10.0 ,
+                horizontal: 20.0
+              ),
+              child: Row(
                 children: <Widget>[
-                  Text("LOGIN" , style: TextStyle(
-                    fontSize: 50.0 , 
-                    fontWeight: FontWeight.bold , 
-                    color: Theme.of(context).primaryColor
-                  ),) , 
-                  Text(
-                    "Access to your data" , 
-                    style: TextStyle(
-                      color: Colors.blueAccent , 
-                      fontWeight: FontWeight.bold
+                  new Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  child: Icon(
+                    Icons.phone_android , 
+                    color: Colors.grey,
+                  ),
+                  ),
+                  Container(
+                    height: 30.0,
+                    width: 1.0,
+                    color: Colors.grey.withOpacity(0.5),
+                    margin: const EdgeInsets.only(left: 00.0, right: 10.0),
+                  ),
+                  new Expanded(
+                    child:TextField(
+                      controller: _mobilecontroller,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: InputBorder.none , 
+                      hintText: "Enter Mobile number"
                     ),
+                  ) 
+                  
+                  ) ,
+                ],
+              ),
+            ) , 
+            Container(
+              decoration: BoxDecoration(
+                 border: Border.all(
+                  color: Colors.grey.withOpacity(0.5) , 
+                  width: 1.0
+                ) ,
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              margin: const EdgeInsets.symmetric(
+                vertical: 10.0 , 
+                horizontal: 20.0
+              ),
+              child: Row(
+                children: <Widget>[
+                  new Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  child: Icon(
+                    Icons.lock , 
+                    color: Colors.grey,
+                  ),
+                  ),
+                  Container(
+                    height: 30.0,
+                    width: 1.0,
+                     color: Colors.grey.withOpacity(0.5),
+                    margin: const EdgeInsets.only(left: 00.0, right: 10.0),
+                  ) , 
+                  new Expanded(
+                    child:TextField(
+                      controller: _passwordcontroller,
+                      obscureText: true,
+                      decoration: InputDecoration(border: InputBorder.none , 
+                      hintText: "Enter your password" , 
+                      hintStyle: TextStyle(color: Colors.grey)
+                    ),
+                      
+                    )
                   )
                 ],
               ),
-            ),
-            
-          ),
-          Container(
-            
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey.withOpacity(0.5) , 
-                width: 1.0
-              ) ,
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            margin: const EdgeInsets.symmetric(
-              vertical: 10.0 ,
-              horizontal: 20.0
-            ),
-            child: Row(
-              children: <Widget>[
-                new Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                child: Icon(
-                  Icons.phone_android , 
-                  color: Colors.grey,
-                ),
-                ),
-                Container(
-                  height: 30.0,
-                  width: 1.0,
-                  color: Colors.grey.withOpacity(0.5),
-                  margin: const EdgeInsets.only(left: 00.0, right: 10.0),
-                ),
-                new Expanded(
-                  child:TextField(
-                    controller: _mobilecontroller,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    border: InputBorder.none , 
-                    hintText: "Enter Mobile number"
-                  ),
-                ) 
-                
-                ) ,
-              ],
-            ),
-          ) , 
-          Container(
-            decoration: BoxDecoration(
-               border: Border.all(
-                color: Colors.grey.withOpacity(0.5) , 
-                width: 1.0
-              ) ,
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            margin: const EdgeInsets.symmetric(
-              vertical: 10.0 , 
-              horizontal: 20.0
-            ),
-            child: Row(
-              children: <Widget>[
-                new Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                child: Icon(
-                  Icons.lock , 
-                  color: Colors.grey,
-                ),
-                ),
-                Container(
-                  height: 30.0,
-                  width: 1.0,
-                   color: Colors.grey.withOpacity(0.5),
-                  margin: const EdgeInsets.only(left: 00.0, right: 10.0),
-                ) , 
-                new Expanded(
-                  child:TextField(
-                    controller: _passwordcontroller,
-                    obscureText: true,
-                    decoration: InputDecoration(border: InputBorder.none , 
-                    hintText: "Enter your password" , 
-                    hintStyle: TextStyle(color: Colors.grey)
-                  ),
-                    
-                  )
-                )
-              ],
-            ),
-          ) , 
-          Container(
-            margin: const EdgeInsets.only(top:20.0),
-            padding: const EdgeInsets.only(left:20.0 , right:20.0),
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: MaterialButton(
-                    
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0) ,  
-                    ),
-                    splashColor: Theme.of(context).primaryColor,
-                    color: Theme.of(context).primaryColor,
+            ) , 
+            Container(
+              margin: const EdgeInsets.only(top:20.0),
+              padding: const EdgeInsets.only(left:20.0 , right:20.0),
+              child: new Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: MaterialButton(
+                      
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0) ,  
+                      ),
+                      splashColor: Theme.of(context).primaryColor,
+                      color: Theme.of(context).primaryColor,
 
+                    
+                      onPressed: (){
+                        print("Login Button cliked");
+                        _login();
+
+                    }, child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.all(
+                           20.0
+                          ),
+                          child: Text("LOGIN" ,style: TextStyle(color: Colors.white),),
+                        ) , 
+                        Container(
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white , 
+                            borderRadius: BorderRadius.circular(24.0)
+                          ),
+                          child: Icon(Icons.arrow_forward , color: Theme.of(context).primaryColor),
+                        ) , 
+                      ],
+                    )),
+                  ) , 
                   
-                    onPressed: (){
-                      print("Login Button cliked");
-                      _login();
-
-                  }, child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Padding(
-                        padding: const EdgeInsets.all(
-                         20.0
-                        ),
-                        child: Text("LOGIN" ,style: TextStyle(color: Colors.white),),
-                      ) , 
-                      Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white , 
-                          borderRadius: BorderRadius.circular(24.0)
-                        ),
-                        child: Icon(Icons.arrow_forward , color: Theme.of(context).primaryColor),
-                      ) , 
-                    ],
-                  )),
-                ) , 
-                
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 20.0,),
-          Center(
-            child: FlatButton(onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (BuildContext context)=>ForgetPassword())
-              ) ; 
-            }, child: Text("Forget Password ?")),
-          )
-      ],),
+            SizedBox(height: 20.0,),
+            Center(
+              child: FlatButton(onPressed: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (BuildContext context)=>ForgetPassword())
+                ) ; 
+              }, child: Text("Forget Password ?")),
+            )
+        ],),
+      ),
     );
   }
 }

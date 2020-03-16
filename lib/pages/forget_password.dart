@@ -32,11 +32,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         RegExp regExp = new RegExp(pattern);
         return regExp.hasMatch(value);
   }
-  /**
-   * This function will save new password it require 
-   * 2 parameter 1.Mobile number
-   * and 2. New Password
-   */
+  /// This function will save new password it require 
+  /// 2 parameter 1.Mobile number
+  /// and 2. New Password
   _newPasswordSave ()async{
     // _progressDialog.show() ; 
       print(currentMobile);
@@ -171,6 +169,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       bool _error = _jsondecode['error'] ;
        
       if(_error){
+        
         String msg = _jsondecode['msg'] ; 
          _alertCustom.showErrorMsg(msg, "Alert");
         //  _showBottomSheet(mobile);

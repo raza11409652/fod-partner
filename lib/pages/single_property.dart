@@ -103,15 +103,24 @@ _initdata(Future<PropertyModel>_future)async{
           children: <Widget>[
   
               ListTile(selected: false,
-              title: Text("Total number of room"),
-              trailing: Container(
+              onTap: (){
+                print("View Vacant Room");
+              },
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text("Total number of room")  ,
+                  Container(
                 decoration: BoxDecoration(
                   color: Colors.redAccent,
                   borderRadius: BorderRadius.circular(4.0)),
                 height: 32.0,
                 width: 32.0,
                 child: Center(child: Text(room ,style: TextStyle(color: Colors.white),),),
+              )
+              ],
               ),
+              trailing: Icon(CupertinoIcons.right_chevron),
               ) ,
               _getCard("Price", "Rs. "+price),
              _getCard("Address",address), 
@@ -139,8 +148,7 @@ _initdata(Future<PropertyModel>_future)async{
 
                   
                     onPressed: (){
-                      print("Login Button cliked");
-                      // _login();
+                      print("View booking btn clicked") ; 
 
                   }, child: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

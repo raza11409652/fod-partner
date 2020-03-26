@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 class PropertyMappingService{
   String _url  = Server.propertylist ; 
-  PropertyMappingModel _propertyMappingModel  ;
+  // PropertyMappingModel _propertyMappingModel  ;
   SharedPreferences _sharedPreferences ; 
   String _token ;  
   PropertyMappingService() {

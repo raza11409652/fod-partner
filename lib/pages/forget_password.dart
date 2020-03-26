@@ -63,7 +63,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       http.Response _response= await http.post(
         Uri.encodeFull(_url),
         headers: {
-           "Accept":"application/json"  ,
+          "Accept":"application/json"  ,
           "content-type":"application/json"
         },
         body: _requestBody
@@ -139,6 +139,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     }
   }
   _reset() async{
+    
     // _progressDialog.show() ; 
     String _url = Server.reset  ;
     String mobile = _mobileController.text.trim() ; 
@@ -146,7 +147,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       _alertCustom.onbasicalert("Please enter mobile number");
       return ; 
     }
-
     _progressDialog.show() ; 
      Map _data = {
     'mobile': mobile,
@@ -163,21 +163,21 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     if(_response.statusCode ==200){
       _progressDialog.dismiss() ; 
       var _responsebody = _response.body ; 
-      // print(_responsebody);
+      print(_responsebody);
       var _jsondecode = json.decode(_responsebody) ; 
-      // print(_jsondecode['error']);
+      //  print(_jsondecode['error']);
       bool _error = _jsondecode['error'] ;
        
       if(_error){
-        
         String msg = _jsondecode['msg'] ; 
          _alertCustom.showErrorMsg(msg, "Alert");
-        //  _showBottomSheet(mobile);
+          // _showBottomSheet(mobile);
       }else{
+        // print(mobile)
         setState(() {
           currentMobile = mobile ; 
         });
-        _showBottomSheet(mobile) ; 
+          _showBottomSheet(mobile) ; 
       }
 
     }else{

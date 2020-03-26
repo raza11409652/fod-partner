@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fod_partner/main.dart';
-import 'package:fod_partner/pages/login_page.dart';
-import 'package:fod_partner/utils/login_round_cliper.dart';
+import 'package:fod_partner/pages/change_password.dart';
+import 'package:fod_partner/pages/payment_page.dart';
+import 'package:fod_partner/utils/profile_clipper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -11,17 +14,46 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   SharedPreferences _sharedPreferences ; 
-  String _loggedinuser = "Fod User" ; 
+  String _loggedinuser = "Fod User" ;
+  // Future<void> _launched; 
+  // WebViewController _controller ; 
+  String _about = "https://flatsondemand.in/" ;  
+  String _term = "https://flatsondemand.in/?view=terms" ; 
+  String _privacy ="https://flatsondemand.in/?view=privacy-policies" ; 
+  String _help = "https://api.whatsapp.com/send?phone=919501909482" ; 
   TextStyle _usernamestyle = TextStyle(color: Colors.black , fontSize: 24.0 , 
   fontWeight: FontWeight.bold);
   TextStyle _listStyle =  TextStyle(color: Colors.black , 
   fontSize: 16.0
   ) ; 
+
+// Future<void> _makePhoneCall(String url) async {
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       print ('Could not launch $url');
+//     }
+// }
+
+_launchInBrowser(String url)async{
+    if(await canLaunch(url)){
+      await launch(
+        url , 
+        forceSafariVC:true ,
+        forceWebView:true ,
+        enableJavaScript: true,  
+      ) ;
+    }else{
+      // throw 
+      print ('Could nor launc $url');
+    }
+}
+
 _logout()async{
  _sharedPreferences = await SharedPreferences.getInstance();
- bool _isLogged  = false  ; 
+//  bool _isLogged  = false  ; 
   try{
-      _isLogged = _sharedPreferences.getBool("_logged") ;
+      // _isLogged = _sharedPreferences.getBool("_logged") ;
       _sharedPreferences.setBool("_logged", false) ; 
       _sharedPreferences.setString("_user", null) ; 
       _sharedPreferences.setString("_token", null);
@@ -60,12 +92,13 @@ _logout()async{
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
+    
+      return Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(color: Colors.white),
       child: Column(children: <Widget>[
         new ClipPath(
-          clipper: LoginClipper(),
+          clipper: ProfileCliper(),
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor
@@ -99,6 +132,64 @@ _logout()async{
           child: Column(
             children: <Widget>[
               ListTile(
+                onTap: (){
+                  print("object");
+                  // _launchInBrowser(_term);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext ctx)=>PaymentPage())
+                  ) ;
+                },
+                 trailing: Icon(CupertinoIcons.right_chevron),
+                enabled: true,
+            leading: Container(
+              padding: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(color: Colors.indigo , 
+              borderRadius: BorderRadius.circular(4.0)
+              ),
+              height: 32.0,
+              width: 32.0,
+              child: Icon(
+                Icons.payment , 
+                color: Colors.white,
+              ),
+            ),
+            title: Text("Payment"  ,
+            style:_listStyle,
+            ),
+          
+          ) , 
+              ListTile(
+                onTap: (){
+                  print("object");
+                  // _launchInBrowser(_term);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext ctx)=>ChangePassword())
+                  ) ;
+                },
+                 trailing: Icon(CupertinoIcons.right_chevron),
+                enabled: true,
+            leading: Container(
+              padding: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(color: Colors.blueGrey , 
+              borderRadius: BorderRadius.circular(4.0)
+              ),
+              height: 32.0,
+              width: 32.0,
+              child: Icon(
+                Icons.settings , 
+                color: Colors.white,
+              ),
+            ),
+            title: Text("Change password"  ,
+            style:_listStyle,
+            ),
+          
+          ) , 
+              ListTile(
+                onTap: (){
+                  // print("object");
+                  _launchInBrowser(_term);
+                },
                  trailing: Icon(CupertinoIcons.right_chevron),
                 enabled: true,
             leading: Container(
@@ -133,9 +224,15 @@ _logout()async{
               ),
             ),
             title: Text("Privacy policy" , style: _listStyle,),
+            onTap: (){
+              _launchInBrowser(_privacy);
+            },
           
           ) ,
            ListTile(
+             onTap: (){
+               _launchInBrowser(_help);
+             },
               trailing: Icon(CupertinoIcons.right_chevron),
             leading: Container(
               padding: const EdgeInsets.all(4.0),
@@ -153,6 +250,9 @@ _logout()async{
           
           ) , 
           ListTile(
+            onTap: (){
+              _launchInBrowser(_about);
+            },
             trailing: Icon(CupertinoIcons.right_chevron),
             leading: Container(
               padding: const EdgeInsets.all(4.0),

@@ -6,5 +6,8 @@ class Server{
   static final  String reset = _authurl + "reset"; 
   static final  String verify = _authurl + "verify";
   static final  String newpassword = _authurl + "newpassword"; 
-   static final  String propertylist = _property + "list";  
+  static final  String updatepassword = _authurl + "update"; 
+  static final  String propertylist = _property + "list";  
+
+   //update
 }

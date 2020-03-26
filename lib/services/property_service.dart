@@ -9,7 +9,7 @@ class PropertyService{
   String _url  = Server.propertylist ;
   SharedPreferences _sharedPreferences ; 
   String _token ; 
-  PropertyService(){}
+  PropertyService();
   Future<PropertyModel>getproperty(String _id)async{
     PropertyModel _property    ; 
      _sharedPreferences = await SharedPreferences.getInstance() ; 

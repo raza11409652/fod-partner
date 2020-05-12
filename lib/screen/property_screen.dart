@@ -35,7 +35,7 @@ class _PropertyScreenState extends State<PropertyScreen> {
             return Center(child: CircularProgressIndicator(),);
           }
           if(snapshot.data.length<1){
-            return Center(child: Text("Loading"),);
+            return Center(child: Text("Sorry now property found"),);
           }
           return ListView.builder(
             itemCount: snapshot.data.length,

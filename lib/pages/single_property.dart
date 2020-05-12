@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fod_partner/model/property_model.dart';
+import 'package:fod_partner/pages/view_bookings.dart';
 import 'package:fod_partner/services/property_service.dart';
 class SingleProperty extends StatefulWidget {
  final String id , name  ;
@@ -149,6 +150,15 @@ _initdata(Future<PropertyModel>_future)async{
                   
                     onPressed: (){
                       print("View booking btn clicked") ; 
+
+                      /**
+                       * start new Activity for bookings related to this particular PG
+                       */
+                      print("Property Id"+  this.id);
+                       Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext ctx)=>ViewBookings(property: this.id) 
+                      )
+                      );  
 
                   }, child: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,5 +1,5 @@
 class Server{
-  static final  String _rooturl = "http://192.168.1.6:9090/";
+  static final  String _rooturl = "http://192.168.1.13:9090/";
   static final  String _authurl = _rooturl + "api/";
   static final  String _property = _rooturl + "property/";
   static final  String login = _authurl+ "login"; 
@@ -8,6 +8,7 @@ class Server{
   static final  String newpassword = _authurl + "newpassword"; 
   static final  String updatepassword = _authurl + "update"; 
   static final  String propertylist = _property + "list";  
+  static final String _booking = _rooturl +"booking/" ; 
+  static final  String bookinglist = _booking + "list";  
 
-   //update
 }

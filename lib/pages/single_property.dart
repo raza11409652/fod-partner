@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fod_partner/model/property_model.dart';
+import 'package:fod_partner/pages/room_list.dart';
 import 'package:fod_partner/pages/view_bookings.dart';
 import 'package:fod_partner/services/property_service.dart';
 class SingleProperty extends StatefulWidget {
@@ -105,7 +106,9 @@ _initdata(Future<PropertyModel>_future)async{
   
               ListTile(selected: false,
               onTap: (){
-                print("View Vacant Room");
+                // print("View Vacant Room");
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext ctx)=>RoomList(propertyId: this.id ,
+                 propertyname: this.name,))) ; 
               },
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

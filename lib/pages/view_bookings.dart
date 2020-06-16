@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fod_partner/pages/single_booking.dart';
 import 'package:fod_partner/services/booking_service.dart';
 class ViewBookings extends StatefulWidget {
   final String property ;
@@ -38,9 +39,12 @@ class _ViewBookingsState extends State<ViewBookings> {
           itemCount: snapshot.data.length,
           itemBuilder: (BuildContext ctx  , int index){
             return ListTile(title: Text(snapshot.data[index].number ,), 
-              subtitle: Text(snapshot.data[index].startdate  + ' TO ' + snapshot.data[index].enddate ),
+              subtitle: Text(snapshot.data[index].startdate  + 'TO ' + snapshot.data[index].enddate ),
              onTap: (){
-               print("hello");
+               String _bookingId = snapshot.data[index].id ; 
+                String _bookingNumber = snapshot.data[index].number ; 
+               Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext ctx)=>SingleBooking(bookingId: _bookingId,bookingNumber: _bookingNumber,))) ; 
              },
              trailing:Icon(CupertinoIcons.right_chevron),
              );

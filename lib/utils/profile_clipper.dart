@@ -5,7 +5,7 @@ class ProfileCliper extends CustomClipper<Path>{
   Path getClip(Size size) {
     Path p = new Path();
     p.lineTo(size.width, 0.0);
-    p.lineTo(size.width, size.height * 0.85);
+    p.lineTo(size.width, size.height * 0.90);
     p.arcToPoint(
       Offset(0.0, size.height * 0.86),
       // radius: const Radius.circular(45),

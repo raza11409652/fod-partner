@@ -12,5 +12,4 @@ class Server{
   static final  String bookinglist = _booking + "list";
   static final String _room = _rooturl + "room/" ; 
   static final String roomlist = _room   + "list"  ;   
-
 }

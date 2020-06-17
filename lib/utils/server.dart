@@ -8,8 +8,14 @@ class Server{
   static final  String newpassword = _authurl + "newpassword"; 
   static final  String updatepassword = _authurl + "update"; 
   static final  String propertylist = _property + "list";  
-  static final String _booking = _rooturl +"booking/" ; 
+  static final  String _booking = _rooturl +"booking/" ; 
   static final  String bookinglist = _booking + "list";
   static final String _room = _rooturl + "room/" ; 
-  static final String roomlist = _room   + "list"  ;   
+  static final String roomlist = _room   + "list"  ;
+  /*
+   * User Profile end point
+   * 
+   * */ 
+  static final String _user = _rooturl  + "user/"  ; 
+  static final String userprofile = _user  + "profile"  ;   
 }

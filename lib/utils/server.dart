@@ -10,6 +10,7 @@ class Server{
   static final  String propertylist = _property + "list";  
   static final  String _booking = _rooturl +"booking/" ; 
   static final  String bookinglist = _booking + "list";
+  static final String bookingPaymentList = _booking + "payment" ; 
   static final String _room = _rooturl + "room/" ; 
   static final String roomlist = _room   + "list"  ;
   /*

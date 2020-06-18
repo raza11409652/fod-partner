@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fod_partner/pages/booking_payment.dart';
 import 'package:fod_partner/pages/user_profile.dart';
 import 'package:fod_partner/services/booking_service.dart';
 class ViewBookings extends StatefulWidget {
@@ -117,7 +118,13 @@ Column _buildView(data) {
             )  , 
             ListTile(
             onTap: (){
-             print("Payment history") ; 
+            Navigator.pop(context);
+             Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext ctx)=>BookingPayment(
+                      bookingId: data.id,
+                      bookingNumber: data.number,
+                    ))
+                ) ; 
             },
             trailing: Icon(CupertinoIcons.right_chevron),
             leading: Container(

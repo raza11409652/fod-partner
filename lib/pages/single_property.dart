@@ -159,8 +159,8 @@ _initdata(Future<PropertyModel>_future)async{
                        */
                       print("Property Id"+  this.id);
                        Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext ctx)=>ViewBookings(property: this.id) 
-                      )
+                       MaterialPageRoute(builder: (BuildContext ctx)=>ViewBookings(property: this.id) 
+                        )
                       );  
 
                   }, child: new Row(

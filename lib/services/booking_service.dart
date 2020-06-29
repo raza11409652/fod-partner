@@ -27,8 +27,7 @@ class BookingService{
         "auth-token":_token , 
         "Accept":"application/json"  ,
         "content-type":"application/json"
-      }
-      ) ; 
+      }) ; 
       List<BookingModel> list =[];
       // print(_response.body); 
       if(_response.statusCode ==200){

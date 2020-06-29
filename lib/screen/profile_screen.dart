@@ -93,229 +93,231 @@ _logout()async{
   @override
   Widget build(BuildContext context) {
     
-      return Container(
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(color: Colors.white),
-      child: Column(children: <Widget>[
-        new ClipPath(
-          clipper: ProfileCliper(),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor
-            ),
-          
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(
-              top: 20.0 , 
-              bottom: 20.0
-            ),
-            child:Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(top:40.0),
-              child: Card(
-                elevation: 0.0,
-                child:Container(padding:const EdgeInsets.all(12.0),
-                child: Column(children: <Widget>[
-                  Text("Hello" , style: _usernamestyle,) , 
-                  Text(_loggedinuser , style: TextStyle(
-                    color: Theme.of(context).primaryColor , 
-                    fontSize: 16.0
-                  ),)
-                ],),
+      return SingleChildScrollView(
+              child: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(color: Colors.white),
+        child: Column(children: <Widget>[
+          new ClipPath(
+            clipper: ProfileCliper(),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor
+              ),
+            
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(
+                top: 20.0 , 
+                bottom: 20.0
+              ),
+              child:Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.only(top:40.0),
+                child: Card(
+                  elevation: 0.0,
+                  child:Container(padding:const EdgeInsets.all(12.0),
+                  child: Column(children: <Widget>[
+                    Text("Hello" , style: _usernamestyle,) , 
+                    Text(_loggedinuser , style: TextStyle(
+                      color: Theme.of(context).primaryColor , 
+                      fontSize: 16.0
+                    ),)
+                  ],),
+                  ),
                 ),
               ),
             ),
-          ),
-        ) , 
-        Container(
-          padding:const EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                onTap: (){
-                  print("object");
-                  // _launchInBrowser(_term);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (BuildContext ctx)=>PaymentPage())
-                  ) ;
-                },
-                 trailing: Icon(CupertinoIcons.right_chevron),
-                enabled: true,
-            leading: Container(
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(color: Colors.indigo , 
-              borderRadius: BorderRadius.circular(4.0)
-              ),
-              height: 32.0,
-              width: 32.0,
-              child: Icon(
-                Icons.payment , 
-                color: Colors.white,
-              ),
-            ),
-            title: Text("Payment"  ,
-            style:_listStyle,
-            ),
-          
           ) , 
-              ListTile(
-                onTap: (){
-                  print("object");
-                  // _launchInBrowser(_term);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (BuildContext ctx)=>ChangePassword())
-                  ) ;
-                },
-                 trailing: Icon(CupertinoIcons.right_chevron),
-                enabled: true,
-            leading: Container(
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(color: Colors.blueGrey , 
-              borderRadius: BorderRadius.circular(4.0)
-              ),
-              height: 32.0,
-              width: 32.0,
-              child: Icon(
-                Icons.settings , 
-                color: Colors.white,
-              ),
-            ),
-            title: Text("Change password"  ,
-            style:_listStyle,
-            ),
-          
-          ) , 
-              ListTile(
-                onTap: (){
-                  // print("object");
-                  _launchInBrowser(_term);
-                },
-                 trailing: Icon(CupertinoIcons.right_chevron),
-                enabled: true,
-            leading: Container(
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(color: Colors.black , 
-              borderRadius: BorderRadius.circular(4.0)
-              ),
-              height: 32.0,
-              width: 32.0,
-              child: Icon(
-                Icons.help , 
-                color: Colors.white,
-              ),
-            ),
-            title: Text("Terms and condition"  ,
-            style:_listStyle,
-            ),
-          
-          )  ,
-          ListTile(
-             trailing: Icon(CupertinoIcons.right_chevron),
-            leading: Container(
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(color: Colors.greenAccent , 
-              borderRadius: BorderRadius.circular(4.0)
-              ),
-              height: 32.0,
-              width: 32.0,
-              child: Icon(
-                Icons.short_text , 
-                color: Colors.white,
-              ),
-            ),
-            title: Text("Privacy policy" , style: _listStyle,),
-            onTap: (){
-              _launchInBrowser(_privacy);
-            },
-          
-          ) ,
-           ListTile(
-             onTap: (){
-               _launchInBrowser(_help);
-             },
-              trailing: Icon(CupertinoIcons.right_chevron),
-            leading: Container(
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(color: Colors.yellow.shade700 , 
-              borderRadius: BorderRadius.circular(4.0)
-              ),
-              height: 32.0,
-              width: 32.0,
-              child: Icon(
-                Icons.chat_bubble_outline , 
-                color: Colors.white,
-              ),
-            ),
-            title: Text("Help center" , style: _listStyle,),
-          
-          ) , 
-          ListTile(
-            onTap: (){
-              _launchInBrowser(_about);
-            },
-            trailing: Icon(CupertinoIcons.right_chevron),
-            leading: Container(
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(color: Colors.blueAccent , 
-              borderRadius: BorderRadius.circular(4.0)
-              ),
-              height: 32.0,
-              width: 32.0,
-              child: Icon(
-                Icons.info_outline , 
-                color: Colors.white,
-              ),
-            ),
-            title: Text("About Us" , style: _listStyle,),
-          
-            ) , 
-             Container(
-            margin: const EdgeInsets.only(top:20.0),
-            padding: const EdgeInsets.only(left:20.0 , right:20.0),
-            child: new Row(
+          Container(
+            padding:const EdgeInsets.all(10.0),
+            child: Column(
               children: <Widget>[
-                new Expanded(
-                  child: MaterialButton(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0) ,  
-                    ),
-                    splashColor: Colors.black38,
-                    color: Colors.black,
+                ListTile(
+                  onTap: (){
+                    print("object");
+                    // _launchInBrowser(_term);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext ctx)=>PaymentPage())
+                    ) ;
+                  },
+                   trailing: Icon(CupertinoIcons.right_chevron),
+                  enabled: true,
+              leading: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(color: Colors.indigo , 
+                borderRadius: BorderRadius.circular(4.0)
+                ),
+                height: 32.0,
+                width: 32.0,
+                child: Icon(
+                  Icons.payment , 
+                  color: Colors.white,
+                ),
+              ),
+              title: Text("Payment"  ,
+              style:_listStyle,
+              ),
+            
+            ) , 
+                ListTile(
+                  onTap: (){
+                    print("object");
+                    // _launchInBrowser(_term);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext ctx)=>ChangePassword())
+                    ) ;
+                  },
+                   trailing: Icon(CupertinoIcons.right_chevron),
+                  enabled: true,
+              leading: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(color: Colors.blueGrey , 
+                borderRadius: BorderRadius.circular(4.0)
+                ),
+                height: 32.0,
+                width: 32.0,
+                child: Icon(
+                  Icons.settings , 
+                  color: Colors.white,
+                ),
+              ),
+              title: Text("Change password"  ,
+              style:_listStyle,
+              ),
+            
+            ) , 
+                ListTile(
+                  onTap: (){
+                    // print("object");
+                    _launchInBrowser(_term);
+                  },
+                   trailing: Icon(CupertinoIcons.right_chevron),
+                  enabled: true,
+              leading: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(color: Colors.black , 
+                borderRadius: BorderRadius.circular(4.0)
+                ),
+                height: 32.0,
+                width: 32.0,
+                child: Icon(
+                  Icons.help , 
+                  color: Colors.white,
+                ),
+              ),
+              title: Text("Terms and condition"  ,
+              style:_listStyle,
+              ),
+            
+            )  ,
+            ListTile(
+               trailing: Icon(CupertinoIcons.right_chevron),
+              leading: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(color: Colors.greenAccent , 
+                borderRadius: BorderRadius.circular(4.0)
+                ),
+                height: 32.0,
+                width: 32.0,
+                child: Icon(
+                  Icons.short_text , 
+                  color: Colors.white,
+                ),
+              ),
+              title: Text("Privacy policy" , style: _listStyle,),
+              onTap: (){
+                _launchInBrowser(_privacy);
+              },
+            
+            ) ,
+             ListTile(
+               onTap: (){
+                 _launchInBrowser(_help);
+               },
+                trailing: Icon(CupertinoIcons.right_chevron),
+              leading: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(color: Colors.yellow.shade700 , 
+                borderRadius: BorderRadius.circular(4.0)
+                ),
+                height: 32.0,
+                width: 32.0,
+                child: Icon(
+                  Icons.chat_bubble_outline , 
+                  color: Colors.white,
+                ),
+              ),
+              title: Text("Help center" , style: _listStyle,),
+            
+            ) , 
+            ListTile(
+              onTap: (){
+                _launchInBrowser(_about);
+              },
+              trailing: Icon(CupertinoIcons.right_chevron),
+              leading: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(color: Colors.blueAccent , 
+                borderRadius: BorderRadius.circular(4.0)
+                ),
+                height: 32.0,
+                width: 32.0,
+                child: Icon(
+                  Icons.info_outline , 
+                  color: Colors.white,
+                ),
+              ),
+              title: Text("About Us" , style: _listStyle,),
+            
+              ) , 
+               Container(
+              margin: const EdgeInsets.only(top:10.0),
+              padding: const EdgeInsets.only(left:20.0 , right:20.0),
+              child: new Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: MaterialButton(
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0) ,  
+                      ),
+                      splashColor: Colors.black38,
+                      color: Colors.black,
 
+                    
+                      onPressed: (){
+                        print("Login Button cliked");
+                        _logout();
+
+                    }, child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.all(
+                           20.0
+                          ),
+                          child: Text("Logout" ,style: TextStyle(color: Colors.white),),
+                        ) , 
+                        Container(
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white , 
+                            borderRadius: BorderRadius.circular(24.0)
+                          ),
+                          child: Icon(Icons.arrow_forward , color: Theme.of(context).primaryColor),
+                        ) , 
+                      ],
+                    )),
+                  ) , 
                   
-                    onPressed: (){
-                      print("Login Button cliked");
-                      _logout();
-
-                  }, child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Padding(
-                        padding: const EdgeInsets.all(
-                         20.0
-                        ),
-                        child: Text("Logout" ,style: TextStyle(color: Colors.white),),
-                      ) , 
-                      Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white , 
-                          borderRadius: BorderRadius.circular(24.0)
-                        ),
-                        child: Icon(Icons.arrow_forward , color: Theme.of(context).primaryColor),
-                      ) , 
-                    ],
-                  )),
-                ) , 
-                
+                ],
+              ),
+            )
               ],
-            ),
+            )
           )
-            ],
-          )
-        )
-      ],),
-    );
+        ],),
+    ),
+      );
     
   }
 }
